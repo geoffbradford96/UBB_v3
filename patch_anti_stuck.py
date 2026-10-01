@@ -1,4 +1,3 @@
-import os
 
 scripts = [
     'd:/Game Dev/UBB_v2/Scripts/Unit.gd',
