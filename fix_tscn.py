@@ -1,5 +1,3 @@
-import re
-
 with open('d:/Game Dev/UBB_v2/Scenes/Arena.tscn', 'r') as f:
     lines = f.readlines()
 
