@@ -1,5 +1,3 @@
-import sys
-
 with open('d:/Game Dev/UBB_v2/Scripts/ArenaManager.gd', 'r') as f:
     lines = f.readlines()
     
