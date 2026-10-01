@@ -1,5 +1,3 @@
-import os
-
 with open('d:/Game Dev/UBB_v2/Scripts/ArenaManager.gd', 'r') as f:
     text = f.read()
 
