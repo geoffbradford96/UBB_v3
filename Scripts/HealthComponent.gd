@@ -74,6 +74,8 @@ func take_damage(amount: float):
 
 @rpc("authority", "call_local", "reliable")
 func sync_take_damage(amount: float):
+	if amount <= 0:
+		return
 	current_health -= amount
 	if hp_bar:
 		hp_bar.value = current_health
