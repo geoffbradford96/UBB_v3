@@ -1,5 +1,3 @@
-import sys
-
 def inject_avoidance(filepath):
     with open(filepath, 'r') as f:
         lines = f.readlines()
