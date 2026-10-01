@@ -1,5 +1,3 @@
-import re
-
 for script in ['d:/Game Dev/UBB_v2/Scripts/Hero.gd', 'd:/Game Dev/UBB_v2/Scripts/Tank.gd']:
     with open(script, 'r') as f:
         text = f.read()
