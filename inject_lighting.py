@@ -1,5 +1,3 @@
-import os
-
 arena = 'd:/Game Dev/UBB/Scenes/Arena.tscn'
 with open(arena, 'r') as f:
     data = f.read()
