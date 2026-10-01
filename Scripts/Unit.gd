@@ -13,6 +13,7 @@ extends CharacterBody3D
 
 var current_target: Node3D = null
 var attack_timer: float = 0.0
+var my_team: String = ""
 
 # Procedural Animation vars
 var walk_time: float = 0.0
@@ -31,6 +32,9 @@ func _ready():
 		unit_attribute = "Mechanical"
 	elif "Jellyfish" in name or "Beetle" in name or "Octopus" in name or "Squid" in name or "GreatBeastSpeaker" in name:
 		unit_attribute = "Beast"
+
+	for g in get_groups():
+		if g.begins_with("Side"): my_team = g
 
 	base_mesh_pos = mesh.position
 	var health = get_node_or_null("HealthComponent")
@@ -64,9 +68,6 @@ func _physics_process(delta):
 			new_velocity.y = velocity.y # Preserve gravity
 			velocity = new_velocity
 			# --- Separation / Collision Avoidance ---
-			var my_team = ""
-			for g in get_groups():
-				if g.begins_with("Side"): my_team = g
 			var space_state = get_world_3d().direct_space_state
 			var query = PhysicsShapeQueryParameters3D.new()
 			var shape = SphereShape3D.new()
@@ -122,11 +123,8 @@ func _physics_process(delta):
 				var target_health = current_target.get_node_or_null("HealthComponent")
 				if target_health:
 					if "SkyJellyfish" in self.name or "StoneOctopus" in self.name:
-						var m_team = ""
-						for g in get_groups():
-							if g.begins_with("Side"): m_team = g
 						for node in get_tree().get_nodes_in_group("Targetable"):
-							if not node.is_in_group(m_team) and is_instance_valid(node):
+							if not node.is_in_group(my_team) and is_instance_valid(node):
 								if self.global_position.distance_to(node.global_position) <= attack_range + 2.0:
 									var hp = node.get_node_or_null("HealthComponent")
 									if hp: hp.take_damage(attack_damage)
@@ -163,9 +161,6 @@ func _physics_process(delta):
 				
 func find_new_target():
 	current_target = null
-	var my_team = ""
-	for g in get_groups():
-		if g.begins_with("Side"): my_team = g
 	var enemies = []
 	for node in get_tree().get_nodes_in_group("Targetable"):
 		if not node.is_in_group(my_team):
