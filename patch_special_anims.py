@@ -1,5 +1,3 @@
-import re
-
 for script, action, target_method in [('d:/Game Dev/UBB_v2/Scripts/Medic.gd', 'heal', 'target_health.heal(heal_amount)'), ('d:/Game Dev/UBB_v2/Scripts/RepairMan.gd', 'repair', 'target_health.heal(repair_amount)')]:
     with open(script, 'r') as f:
         text = f.read()
