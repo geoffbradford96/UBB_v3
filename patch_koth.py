@@ -1,5 +1,3 @@
-import re
-
 with open("Scripts/ArenaManager.gd", "r") as f:
     text = f.read()
 
