@@ -17,7 +17,7 @@ func _ready():
 		resolution_option.add_item(str(res.x) + " x " + str(res.y))
 		
 	# Set current resolution in dropdown
-	var current_size = DisplayServer.window_get_size()
+	var current_size = get_window().size
 	var closest_idx = 0
 	var min_diff = 999999
 	for i in range(resolutions.size()):
@@ -28,7 +28,7 @@ func _ready():
 	resolution_option.select(closest_idx)
 	
 	# Set current fullscreen state
-	fullscreen_check.button_pressed = DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_FULLSCREEN
+	fullscreen_check.button_pressed = get_window().mode == Window.MODE_FULLSCREEN
 	
 	# Set current volume
 	var db = AudioServer.get_bus_volume_db(0) # Master bus
@@ -36,18 +36,16 @@ func _ready():
 
 func _on_resolution_item_selected(index):
 	var target_res = resolutions[index]
-	DisplayServer.window_set_size(target_res)
+	get_window().size = target_res
 	# Center the window if we are not in fullscreen
-	if DisplayServer.window_get_mode() != DisplayServer.WINDOW_MODE_FULLSCREEN:
-		var screen_size = DisplayServer.screen_get_size()
-		var center_pos = (screen_size - target_res) / 2
-		DisplayServer.window_set_position(center_pos)
+	if get_window().mode != Window.MODE_FULLSCREEN:
+		get_window().move_to_center()
 
 func _on_fullscreen_toggled(toggled_on):
 	if toggled_on:
-		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+		get_window().mode = Window.MODE_FULLSCREEN
 	else:
-		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+		get_window().mode = Window.MODE_WINDOWED
 		# Trigger re-center
 		_on_resolution_item_selected(resolution_option.selected)
 
@@ -59,5 +57,5 @@ func _on_volume_value_changed(value):
 	AudioServer.set_bus_mute(0, value <= 0.01)
 
 func _on_back_pressed():
-	get_tree().change_scene_to_file("res://Scenes/ModeHub.tscn")
+	get_tree().change_scene_to_file("res://Scenes/MainMenu.tscn")
 
