@@ -22,13 +22,15 @@ var game_mode = "DESTROY_BASE"
 var map_selected = "Arena.tscn"
 var match_player_count = 2
 
+const SAVE_PASS = "s3cr3t_d3cks_p4ssw0rd!"
+
 func _ready():
 	print("Global GameState is active!")
 	load_decks()
 	
 func save_decks():
 	var save_path = "user://local_decks.json"
-	var file = FileAccess.open(save_path, FileAccess.WRITE)
+	var file = FileAccess.open_encrypted_with_pass(save_path, FileAccess.WRITE, SAVE_PASS)
 	if file:
 		var json = JSON.stringify(player_decks)
 		file.store_string(json)
@@ -37,14 +39,28 @@ func save_decks():
 func load_decks():
 	var load_path = "user://local_decks.json"
 	if FileAccess.file_exists(load_path):
-		var file = FileAccess.open(load_path, FileAccess.READ)
-		var json = file.get_as_text()
-		file.close()
-		
-		var parsed = JSON.parse_string(json)
-		if typeof(parsed) == TYPE_DICTIONARY:
-			for key in parsed.keys():
-				player_decks[key] = parsed[key]
+		var file = FileAccess.open_encrypted_with_pass(load_path, FileAccess.READ, SAVE_PASS)
+		if file:
+			var json = file.get_as_text()
+			file.close()
+
+			var parsed = JSON.parse_string(json)
+			if typeof(parsed) == TYPE_DICTIONARY:
+				for key in parsed.keys():
+					player_decks[key] = parsed[key]
+		else:
+			# Fallback for older, unencrypted saves
+			var fallback_file = FileAccess.open(load_path, FileAccess.READ)
+			if fallback_file:
+				var json = fallback_file.get_as_text()
+				fallback_file.close()
+
+				var parsed = JSON.parse_string(json)
+				if typeof(parsed) == TYPE_DICTIONARY:
+					for key in parsed.keys():
+						player_decks[key] = parsed[key]
+				# Re-save to upgrade to encrypted format
+				save_decks()
 
 # Backwards compatibility for older scripts that used player_deck
 var player_deck:
