@@ -211,10 +211,10 @@ func attempt_to_play_card(p: LocalPlayerState, data: Resource, target_position: 
     p.req -= data.cost
     
     if multiplayer.has_multiplayer_peer() and multiplayer.multiplayer_peer.get_connection_status() == MultiplayerPeer.CONNECTION_CONNECTED:
-        var unique_id = str(randi())
+        var unique_id = Crypto.new().generate_random_bytes(16).hex_encode()
         rpc("sync_spawn_card", data.resource_path, target_position, p.team, unique_id)
     else:
-        sync_spawn_card(data.resource_path, target_position, p.team, str(randi()))
+        sync_spawn_card(data.resource_path, target_position, p.team, Crypto.new().generate_random_bytes(16).hex_encode())
         
     return true
 
