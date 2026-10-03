@@ -62,6 +62,12 @@ func host_game():
 		print("Failed to host game: ", error)
 
 func join_game(ip: String):
+	var regex = RegEx.new()
+	regex.compile("^[a-zA-Z0-9.:-]+$")
+	if regex.search(ip) == null:
+		print("Invalid IP address or domain name: ", ip)
+		return
+
 	var error = peer.create_client(ip, 8910)
 	if error == OK:
 		multiplayer.multiplayer_peer = peer
