@@ -18,6 +18,8 @@ class LocalPlayerState:
 
 var players: Array = []
 
+var _spawn_counter: int = 0
+
 func _ready():
     print("Initializing Arena in Mode: ", GameState.current_mode)
     
@@ -210,11 +212,15 @@ func attempt_to_play_card(p: LocalPlayerState, data: Resource, target_position: 
             
     p.req -= data.cost
     
+    _spawn_counter += 1
+
     if multiplayer.has_multiplayer_peer() and multiplayer.multiplayer_peer.get_connection_status() == MultiplayerPeer.CONNECTION_CONNECTED:
-        var unique_id = str(randi())
+        var peer_id = multiplayer.get_unique_id()
+        var unique_id = str(peer_id) + "_" + str(_spawn_counter)
         rpc("sync_spawn_card", data.resource_path, target_position, p.team, unique_id)
     else:
-        sync_spawn_card(data.resource_path, target_position, p.team, str(randi()))
+        var unique_id = "local_" + str(_spawn_counter)
+        sync_spawn_card(data.resource_path, target_position, p.team, unique_id)
         
     return true
 
