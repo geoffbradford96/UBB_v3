@@ -33,6 +33,11 @@ func load_all_cards():
 			file_name = dir.get_next()
 
 func build_ui():
+	_build_top_bar()
+	_build_left_panel()
+	_build_right_panel()
+
+func _build_top_bar():
 	# Top Bar for Profile Selection
 	var top_bar = HBoxContainer.new()
 	top_bar.custom_minimum_size = Vector2(0, 40)
@@ -58,7 +63,8 @@ func build_ui():
 	# Insert top bar at the very top of the scene (before MainBody if possible, or inside it)
 	add_child(top_bar)
 	move_child(top_bar, 0)
-	
+
+func _build_left_panel():
 	var left_panel = PanelContainer.new()
 	left_panel.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	main_body.add_child(left_panel)
@@ -80,7 +86,8 @@ func build_ui():
 	left_grid = GridContainer.new()
 	left_grid.columns = 4
 	scroll.add_child(left_grid)
-	
+
+func _build_right_panel():
 	var right_panel = PanelContainer.new()
 	right_panel.custom_minimum_size = Vector2(400, 0)
 	main_body.add_child(right_panel)
