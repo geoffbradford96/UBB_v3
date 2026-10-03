@@ -2,8 +2,8 @@ with open('d:/Game Dev/UBB_v2/Scripts/BotAI.gd', 'r') as f:
     text = f.read()
 
 # Fix profiles array
-old_profiles = 'var profiles = ["Void Charcon", "Dominion Planet Commander", "Mixed Hordes of the Unknown Realm", "The Great Beast Speaker"]'
-new_profiles = 'var profiles = ["Void Charcon", "Dominion Planet Commander", "Mixed Hordes of the Unknown Realm", "The Great Beast Speaker", "The Scrap Pirate King", "The Reach Queen"]'
+old_profiles = '\tvar profiles = ["Void Charcon", "Dominion Planet Commander", "Mixed Hordes of the Unknown Realm", "The Great Beast Speaker"]'
+new_profiles = '\tvar profiles = ["Void Charcon", "Dominion Planet Commander", "Mixed Hordes of the Unknown Realm", "The Great Beast Speaker", "The Scrap Pirate King", "The Reach Queen"]'
 text = text.replace(old_profiles, new_profiles)
 
 # Fix commander spawning for Scrap
