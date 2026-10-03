@@ -152,9 +152,9 @@ func play_card(card: CardData, target_position: Vector3):
 	var am = get_tree().current_scene
 	if am and am.has_method("sync_spawn_card"):
 		if multiplayer.has_multiplayer_peer() and multiplayer.multiplayer_peer.get_connection_status() == MultiplayerPeer.CONNECTION_CONNECTED:
-			am.rpc("sync_spawn_card", card.resource_path, target_position, my_team, str(randi()))
+			am.rpc("sync_spawn_card", card.resource_path, target_position, my_team, Crypto.new().generate_random_bytes(16).hex_encode())
 		else:
-			am.sync_spawn_card(card.resource_path, target_position, my_team, str(randi()))
+			am.sync_spawn_card(card.resource_path, target_position, my_team, Crypto.new().generate_random_bytes(16).hex_encode())
 			
 	draw_to_hand()
 
