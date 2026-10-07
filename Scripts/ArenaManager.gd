@@ -284,6 +284,8 @@ func _get_team_faction(team: String) -> String:
                 if child.ai_profile == "Void Charcon": return "Void"
                 if child.ai_profile == "The Great Beast Speaker": return "Rimworlders"
                 if child.ai_profile == "Dominion Planet Commander": return "Dominion"
+                if child.ai_profile == "The Scrap Pirate King": return "Scrap"
+                if child.ai_profile == "The Reach Queen": return "Reach"
                 var options = ["Dominion", "Void", "Rimworlders"]
                 return options[randi() % options.size()]
     for p in players:
