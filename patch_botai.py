@@ -1,4 +1,4 @@
-with open('d:/Game Dev/UBB_v2/Scripts/BotAI.gd', 'r') as f:
+with open('Scripts/BotAI.gd', 'r') as f:
     text = f.read()
 
 # Add profiles to the exported enum dropdown
@@ -23,10 +23,7 @@ new_decks = '''	elif ai_profile == "The Great Beast Speaker":
 			deck.append(card)'''
             
 text = text.replace('''	elif ai_profile == "The Great Beast Speaker":
-		for i in range(8):
-			var opts = ["RimworlderGunner", "RimworlderMelee", "RimworlderMonstrous", "RimworlderMutant", "SkyBeetle", "SkyJellyfish", "StoneOctopus", "GiantSquid"]
-			var card = load("res://Data/Cards/" + opts[randi() % opts.size()] + ".tres")
-			deck.append(card)''', new_decks)
+		deck = generate_themed_deck("Rimworlders")''', new_decks)
 
-with open('d:/Game Dev/UBB_v2/Scripts/BotAI.gd', 'w') as f:
+with open('Scripts/BotAI.gd', 'w') as f:
     f.write(text)

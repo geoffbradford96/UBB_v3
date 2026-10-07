@@ -28,7 +28,22 @@ func _ready():
 	elif ai_profile == "Dominion Planet Commander":
 		deck = generate_themed_deck("Dominion")
 	elif ai_profile == "The Great Beast Speaker":
-		deck = generate_themed_deck("Rimworlders")
+		for i in range(8):
+			var opts = ["RimworlderGunner", "RimworlderMelee", "RimworlderMonstrous", "RimworlderMutant", "SkyBeetle", "SkyJellyfish", "StoneOctopus", "GiantSquid"]
+			var card = load("res://Data/Cards/" + opts[randi() % opts.size()] + ".tres")
+			deck.append(card)
+	elif ai_profile == "The Scrap Pirate King":
+		deck.append(load("res://Data/Cards/ScrapCommander.tres"))
+		for i in range(7):
+			var opts = ["ScrapMelee", "ScrapRanged", "ScrapTank", "ScrapPlane", "ScrapHunter", "ScrapRepair"]
+			var card = load("res://Data/Cards/" + opts[randi() % opts.size()] + ".tres")
+			deck.append(card)
+	elif ai_profile == "The Reach Queen":
+		deck.append(load("res://Data/Cards/ReachCommander.tres"))
+		for i in range(7):
+			var opts = ["ReachMelee", "ReachRanged", "ReachTank", "ReachPlane", "ReachHunter", "ReachRepair"]
+			var card = load("res://Data/Cards/" + opts[randi() % opts.size()] + ".tres")
+			deck.append(card)
 	else:
 		deck = generate_themed_deck("Random")
 		
