@@ -1,4 +1,4 @@
-with open('d:/Game Dev/UBB_v2/Scripts/BotAI.gd', 'r') as f:
+with open('Scripts/BotAI.gd', 'r') as f:
     text = f.read()
 
 # Fix profiles array
@@ -34,5 +34,5 @@ new_reach = '''	elif ai_profile == "The Reach Queen":
 			deck.append(card)'''
 text = text.replace(old_reach, new_reach)
 
-with open('d:/Game Dev/UBB_v2/Scripts/BotAI.gd', 'w') as f:
+with open('Scripts/BotAI.gd', 'w') as f:
     f.write(text)
